@@ -1,24 +1,37 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import { BrowserRouter, Route } from 'react-router-dom';
+import SignIn from "./SignIn";
+import SignUp from "./SignUp";
+import ProfilePage from "./ProfilePage";
+import PasswordReset from "./PasswordReset";
+import { useStateValue } from './StateProvider';
+import { actionTypes } from './reducer';
 
 function App() {
+  const [{user}, dispatch] = useStateValue();  
+useEffect(()=>{
+  console.log('user',user)
+  if(!user) {
+    localStorage.getItem('user') &&  dispatch({
+      type:actionTypes.SET_USER,
+      user: JSON.parse(localStorage.getItem('user')),
+  });
+}
+},[user])
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {!user ?
+        (<BrowserRouter>
+          <div>
+            <SignIn path="/home" />
+          </div>
+        </BrowserRouter>)
+        :
+        (<ProfilePage />)
+      }
+
     </div>
   );
 }
