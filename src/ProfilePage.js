@@ -4,8 +4,6 @@ import { Button } from '@material-ui/core';
 import { auth, provider } from './firebase';
 import { actionTypes } from './reducer';
 import { useStateValue } from './StateProvider';
-import { useHistory } from "react-router-dom";
-
 
 const ProfilePage = () => {
   const [{ user }, dispatch] = useStateValue()

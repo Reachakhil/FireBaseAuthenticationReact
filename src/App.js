@@ -1,13 +1,14 @@
 import React, { useEffect } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import SignIn from "./SignIn";
 import SignUp from "./SignUp";
 import ProfilePage from "./ProfilePage";
 import PasswordReset from "./PasswordReset";
 import { useStateValue } from './StateProvider';
 import { actionTypes } from './reducer';
+
 
 function App() {
   const [{user}, dispatch] = useStateValue();  
@@ -25,7 +26,11 @@ useEffect(()=>{
       {!user ?
         (<BrowserRouter>
           <div>
-            <SignIn path="/home" />
+            <Switch>
+            <SignIn exact path="/" />
+            <SignUp path="/signUp" />
+            </Switch>
+           
           </div>
         </BrowserRouter>)
         :
