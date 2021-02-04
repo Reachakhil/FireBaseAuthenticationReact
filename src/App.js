@@ -12,6 +12,10 @@ import { actionTypes } from './reducer';
 
 function App() {
   const [{user}, dispatch] = useStateValue();  
+  useEffect(()=>{
+    console.log("start of pagee")
+   
+  },[])
 useEffect(()=>{
   console.log('user',user)
   if(!user) {
